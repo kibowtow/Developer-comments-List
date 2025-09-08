@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개발자 정보 페이지</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개발자 정보 페이지</title>
 </head>
 <body>
-    <h2>개발자</h2>
-    <img src="./public/img/ho.png" name="ho">
-    <img src="./public/img/sang.png" name="sang">
-    <img src="./public/img/jin.png" name="jin">
-    <form action="./detail.html" id="comment" method="get">
-        <select name="who" id="select-box">
-            <option value="junho">송준호</option>
-            <option value="junsang">유준상</option>
-            <option value="myungjin">송명진</option>
-        </select>
-        <textarea name="write" placeholder="응원 한 마디 작성"
-        onfocus="this.placeholder=''" onblur="this.placeholder='응원 한 마디 작성'"></textarea>
-        <button type="submit">등록</button>
-    </form>
-    <script src="./public/js/create.js"></script>
+  <h2>개발자</h2>
+  <a href="detail.html?who=junho"><img src="./public/img/ho.png" name="ho"></a>
+  <a href="detail.html?who=junsang"><img src="./public/img/sang.png" name="sang"></a>
+  <a href="detail.html?who=myungjin"><img src="./public/img/jin.png" name="jin"></a>
+
+  <form id="comment-form">
+    <select name="who" id="select-box">
+      <option value="junho">송준호</option>
+      <option value="junsang">유준상</option>
+      <option value="myungjin">송명진</option>
+    </select>
+    <textarea id="comment-text" placeholder="응원 한 마디 작성"></textarea>
+    <button type="submit">등록</button>
+  </form>
+
+  <script src="./public/js/create.js"></script>
 </body>
 </html>
