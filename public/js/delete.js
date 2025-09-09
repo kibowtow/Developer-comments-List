@@ -20,10 +20,8 @@ function renderComments() {
         const isConfirmed = confirm("삭제?");
         if (!isConfirmed) return;
 
-        // 삭제 처리
         comments[who].splice(index, 1);
 
-        // 비어 있으면 삭제 키 자체도 제거
         if (comments[who].length === 0) {
           delete comments[who];
         }
