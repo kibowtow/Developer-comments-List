@@ -1,61 +1,63 @@
+// public/js/delete.js
 document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(location.search);
   const who = params.get("who");
   const list = document.getElementById("comment-list");
 
-  let comments = JSON.parse(localStorage.getItem("comments")) || {};
+  // 안전검사
+  if (!who) {
+    alert("대상을 찾을 수 없습니다.");
+    return;
+  }
 
-function renderComments() {
-  list.innerHTML = ""; // 초기화
+  // 렌더 함수: read.js가 이미 목록을 그리지만, 여기서 버튼을 주입한다
+  const injectActions = () => {
+    // 현재 저장 상태
+    const comments = JSON.parse(localStorage.getItem("comments")) || {};
+    const userComments = comments[who] || [];
 
-  if (comments[who] && comments[who].length > 0) {
-    comments[who].forEach((comment, index) => {
+    // 목록 초기화 및 재구성
+    list.innerHTML = "";
+    if (userComments.length === 0) {
+      list.innerHTML = "<li>아직 댓글이 없습니다.</li>";
+      return;
+    }
+
+    userComments.forEach((comment, index) => {
       const li = document.createElement("li");
-      li.textContent = `${index + 1}. ${comment} `;
 
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "삭제";
-      deleteBtn.style.marginLeft = "10px";
-      deleteBtn.addEventListener("click", () => {
-        const isConfirmed = confirm("삭제?");
-        if (!isConfirmed) return;
+      const text = document.createElement("span");
+      text.textContent = `${index + 1}. ${comment}`;
 
-        comments[who].splice(index, 1);
-
-        if (comments[who].length === 0) {
-          delete comments[who];
-        }
-
-        localStorage.setItem("comments", JSON.stringify(comments));
-        renderComments();
+      const editBtn = document.createElement("button");
+      editBtn.type = "button";
+      editBtn.textContent = "수정";
+      editBtn.addEventListener("click", () => {
+        location.href = `modify.html?who=${encodeURIComponent(who)}&index=${index}`;
       });
 
-      li.appendChild(deleteBtn);
+      const delBtn = document.createElement("button");
+      delBtn.type = "button";
+      delBtn.textContent = "삭제";
+      delBtn.addEventListener("click", () => {
+        if (!confirm("정말 삭제하시겠습니까?")) return;
+
+        const latest = JSON.parse(localStorage.getItem("comments")) || {};
+        const arr = latest[who] || [];
+        if (index < 0 || index >= arr.length) {
+          alert("유효하지 않은 인덱스입니다.");
+          return;
+        }
+        arr.splice(index, 1);
+        latest[who] = arr;
+        localStorage.setItem("comments", JSON.stringify(latest));
+        injectActions(); // 삭제 후 재렌더
+      });
+
+      li.append(text, document.createTextNode(" "), editBtn, document.createTextNode(" "), delBtn);
       list.appendChild(li);
     });
-  } else {
-    list.innerHTML = "<li>아직 댓글이 없습니다.</li>";
-  }
-}
+  };
 
-renderComments();
-
-
-  // 하단 버튼 추가
-  const backBtn = document.createElement("button");
-  backBtn.textContent = "목록으로";
-  backBtn.addEventListener("click", () => {
-    window.location.href = "index.html";
-  });
-
-  const modifyBtn = document.createElement("button");
-  modifyBtn.textContent = "수정하기";
-  modifyBtn.style.marginLeft = "10px";
-  modifyBtn.addEventListener("click", () => {
-    window.location.href = `modify.html?who=${who}`;
-  });
-
-  document.body.appendChild(backBtn);
-  document.body.appendChild(modifyBtn);
+  injectActions();
 });
-
