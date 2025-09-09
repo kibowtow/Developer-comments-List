@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>개발자 정보 페이지</title>
+  <link rel="stylesheet" href="./public/css/reset.css">
+  <link rel="stylesheet" href="./public/css/index.css">
 </head>
-<body>
-  <h2>개발자</h2>
-  <a href="detail.html?who=junho"><img src="./public/img/ho.png" name="ho"></a>
-  <a href="detail.html?who=junsang"><img src="./public/img/sang.png" name="sang"></a>
-  <a href="detail.html?who=myungjin"><img src="./public/img/jin.png" name="jin"></a>
 
+<body>
+  <h2>블록체인 13기 개발자 소개</h2>
+  <div class="img-form">
+    <a href="detail.html?who=junho"><img src="./public/img/ho.png" name="ho">
+      <P>블록체인 13기 송준호</P>
+    </a>
+    <a href="detail.html?who=junsang"><img src="./public/img/sang.png" name="sang">
+      <p>블록체인 13기 유준상</p>
+    </a>
+    <a href="detail.html?who=myungjin"><img src="./public/img/jin.png" name="jin">
+      <p>블록체인 13기 송명진</p>
+    </a>
+  </div>
+  <div class="option-form">
   <form id="comment-form">
     <select name="who" id="select-box">
       <option value="junho">송준호</option>
@@ -20,7 +32,8 @@
     <textarea id="comment-text" placeholder="응원 한 마디 작성"></textarea>
     <button type="submit">등록</button>
   </form>
-
+  </div>
   <script src="./public/js/create.js"></script>
 </body>
+
 </html>
