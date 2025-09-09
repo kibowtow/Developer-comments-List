@@ -1,4 +1,12 @@
+@font-face {
+    font-family: 'OngleebDaisy';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2508-2@1.0/Ownglyph_daisy-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 *{
     margin: 0;
     padding: 0;
 }
+
